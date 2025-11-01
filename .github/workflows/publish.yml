@@ -1,0 +1,25 @@
+on: 
+  push:
+    branches: [main]
+jobs:
+  setup-build-publish:
+    runs-on: 'ubuntu-latest'
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: ComunidadAylas/PackSquash-action@v4
+        with:
+          packsquash_version: latest
+          options: |
+            pack_directory = '.'
+            output_file_path = 'SkinSpice.zip'
+      - uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          name: SkinSpice for Minecraft 1.21.9+
+          version: 1.0.0
+          files: 'SkinSpice.zip'
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          modrinth-id: gXnDCAXN
+          modrinth-token: ${{secrets.MODRINTH_TOKEN}}
+          modrinth-featured: true

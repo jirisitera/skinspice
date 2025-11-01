@@ -1,0 +1,13 @@
+{
+    "pack": {
+        "pack_format": 69,
+        "min_format": 69,
+        "max_format": 69,
+        "description": [
+            {"text":"SkinSpice","color":"#4499bb"},
+            {"text":" | ","color":"#666666"},
+            {"text":"Spice up your skin!\n","color":"#AAAAAA"},
+            {"text":"v1.0.0 (by japicraft)","color":"#666666"}
+        ]
+    }
+}

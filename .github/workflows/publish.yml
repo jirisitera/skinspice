@@ -1,6 +1,13 @@
-on: 
-  push:
+on:
+  workflow_dispatch:
     branches: [main]
+    inputs:
+      pack_version:
+        description: 'Resource pack version to publish'
+        required: true
+      minecraft_version:
+        description: 'Minimal supported Minecraft version'
+        required: true
 jobs:
   setup-build-publish:
     runs-on: 'ubuntu-latest'
@@ -16,13 +23,12 @@ jobs:
             output_file_path = 'SkinSpice.zip'
       - uses: Kir-Antipov/mc-publish@v3.3
         with:
-          name: SkinSpice for Minecraft 1.21.9+
-          version: 1.0.0
+          name: SkinSpice for Minecraft ${{inputs.minecraft_version}}+
+          version: ${{inputs.pack_version}}
           files: 'SkinSpice.zip'
-          github-token: ${{secrets.GITHUB_TOKEN}}
+          loaders: minecraft
+          game-versions: ">=${{inputs.minecraft_version}}"
           modrinth-id: gXnDCAXN
           modrinth-token: ${{secrets.MODRINTH_TOKEN}}
           modrinth-featured: true
-          loaders: minecraft
-          game-versions: |
-            >=1.21.9
+          github-token: ${{secrets.GITHUB_TOKEN}}

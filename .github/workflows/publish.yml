@@ -23,3 +23,6 @@ jobs:
           modrinth-id: gXnDCAXN
           modrinth-token: ${{secrets.MODRINTH_TOKEN}}
           modrinth-featured: true
+          loaders: minecraft
+          game-versions: |
+            >=1.21.9

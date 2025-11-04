@@ -2,6 +2,11 @@
 
 [![modrinth](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/modrinth_vector.svg)](https://modrinth.com/resourcepack/skinspice)
 
+[![.github/workflows/pack.yml](https://github.com/jirisitera/skinspice/actions/workflows/pack.yml/badge.svg)](https://github.com/jirisitera/skinspice/actions/workflows/pack.yml)
+[![.github/workflows/web.yml](https://github.com/jirisitera/skinspice/actions/workflows/web.yml/badge.svg)](https://github.com/jirisitera/skinspice/actions/workflows/web.yml)
+![Modrinth Downloads](https://img.shields.io/modrinth/dt/gXnDCAXN)
+![Modrinth Game Versions](https://img.shields.io/modrinth/game-versions/gXnDCAXN)
+
 SkinSpice is a Minecraft resource pack that allows you to customize your skin a bit more with the help of Vanilla core shaders. That's right, no mods are required to use SkinSpice features!
 
 ## Features

@@ -62,7 +62,7 @@ All of these pixel **must** be fully opaque, meaning they must **not** be transp
 
 Here is a reference image showing where to place the blinking frame and control pixels:
 
-![Steve Skin](./images/steve_skin.png)
+![Example Skin](./images/example_skin.png)
 
 ## License
 

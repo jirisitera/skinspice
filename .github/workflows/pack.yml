@@ -20,12 +20,12 @@ jobs:
           packsquash_version: latest
           options: |
             pack_directory = 'pack'
-            output_file_path = '/pack/SkinSpice.zip'
+            output_file_path = 'SkinSpice.zip'
       - uses: Kir-Antipov/mc-publish@v3.3
         with:
           name: SkinSpice for Minecraft ${{inputs.minecraft_version}}+
           version: ${{inputs.pack_version}}
-          files: '/pack/SkinSpice.zip'
+          files: 'SkinSpice.zip'
           loaders: minecraft
           game-versions: ">=${{inputs.minecraft_version}}"
           modrinth-id: gXnDCAXN

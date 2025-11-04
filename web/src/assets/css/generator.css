@@ -1,0 +1,215 @@
+.filepond--drop-label {
+    color: #ccccff;
+}
+.filepond--panel-root {
+    background-color: #666688;
+}
+.filepond--label-action {
+    text-decoration-color: #ffffff;
+}
+.checkbox-wrapper {
+  position: relative;
+}
+.checkbox-wrapper > svg {
+  position: absolute;
+  top: -130%;
+  left: -170%;
+  width: 110px;
+  pointer-events: none;
+}
+.checkbox-wrapper * {
+  box-sizing: border-box;
+}
+.checkbox-wrapper input[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  margin: 0;
+}
+.checkbox-wrapper input[type="checkbox"]:focus {
+  outline: 0;
+}
+.checkbox-wrapper .cbx {
+  width: 24px;
+  height: 24px;
+  top: calc(50vh - 12px);
+  left: calc(50vw - 12px);
+}
+.checkbox-wrapper .cbx input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #bfbfc0;
+  border-radius: 50%;
+}
+.checkbox-wrapper .cbx label {
+  width: 24px;
+  height: 24px;
+  background: none;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-filter: url("#goo-12");
+  filter: url("#goo-12");
+  transform: translate3d(0, 0, 0);
+  pointer-events: none;
+}
+.checkbox-wrapper .cbx svg {
+  position: absolute;
+  top: 5px;
+  left: 4px;
+  z-index: 1;
+  pointer-events: none;
+}
+.checkbox-wrapper .cbx svg path {
+  stroke: #fff;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 19;
+  stroke-dashoffset: 19;
+  transition: stroke-dashoffset 0.3s ease;
+  transition-delay: 0.2s;
+}
+.checkbox-wrapper .cbx input:checked + label {
+  animation: splash-12 0.6s ease forwards;
+}
+.checkbox-wrapper .cbx input:checked + label + svg path {
+  stroke-dashoffset: 0;
+}
+@-moz-keyframes splash-12 {
+  40% {
+    background: #0ba567;
+    box-shadow: 0 -18px 0 -8px #0ba567, 16px -8px 0 -8px #0ba567, 16px 8px 0 -8px #0ba567, 0 18px 0 -8px #0ba567, -16px 8px 0 -8px #0ba567, -16px -8px 0 -8px #0ba567;
+  }
+  100% {
+    background: #0ba567;
+    box-shadow: 0 -36px 0 -10px transparent, 32px -16px 0 -10px transparent, 32px 16px 0 -10px transparent, 0 36px 0 -10px transparent, -32px 16px 0 -10px transparent, -32px -16px 0 -10px transparent;
+  }
+}
+@-webkit-keyframes splash-12 {
+  40% {
+    background: #0ba567;
+    box-shadow: 0 -18px 0 -8px #0ba567, 16px -8px 0 -8px #0ba567, 16px 8px 0 -8px #0ba567, 0 18px 0 -8px #0ba567, -16px 8px 0 -8px #0ba567, -16px -8px 0 -8px #0ba567;
+  }
+  100% {
+    background: #0ba567;
+    box-shadow: 0 -36px 0 -10px transparent, 32px -16px 0 -10px transparent, 32px 16px 0 -10px transparent, 0 36px 0 -10px transparent, -32px 16px 0 -10px transparent, -32px -16px 0 -10px transparent;
+  }
+}
+@-o-keyframes splash-12 {
+  40% {
+    background: #0ba567;
+    box-shadow: 0 -18px 0 -8px #0ba567, 16px -8px 0 -8px #0ba567, 16px 8px 0 -8px #0ba567, 0 18px 0 -8px #0ba567, -16px 8px 0 -8px #0ba567, -16px -8px 0 -8px #0ba567;
+  }
+  100% {
+    background: #0ba567;
+    box-shadow: 0 -36px 0 -10px transparent, 32px -16px 0 -10px transparent, 32px 16px 0 -10px transparent, 0 36px 0 -10px transparent, -32px 16px 0 -10px transparent, -32px -16px 0 -10px transparent;
+  }
+}
+@keyframes splash-12 {
+  40% {
+    background: #0ba567;
+    box-shadow: 0 -18px 0 -8px #0ba567, 16px -8px 0 -8px #0ba567, 16px 8px 0 -8px #0ba567, 0 18px 0 -8px #0ba567, -16px 8px 0 -8px #0ba567, -16px -8px 0 -8px #0ba567;
+  }
+  100% {
+    background: #0ba567;
+    box-shadow: 0 -36px 0 -10px transparent, 32px -16px 0 -10px transparent, 32px 16px 0 -10px transparent, 0 36px 0 -10px transparent, -32px 16px 0 -10px transparent, -32px -16px 0 -10px transparent;
+  }
+}
+.spiced button {
+  font-size: 18px;
+  background-color: #008542;
+  color: #fff;
+  text-shadow: 0 2px 0 rgb(0 0 0 / 25%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: 0;
+  z-index: 1;
+  user-select: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: unset;
+  padding: 0.8rem 1.5rem;
+  text-decoration: none;
+  font-weight: 900;
+  transition: all 0.7s cubic-bezier(0, 0.8, 0.26, 0.99);
+}
+.spiced button:before {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  content: "";
+  transition: 0.7s cubic-bezier(0, 0.8, 0.26, 0.99);
+  z-index: -1;
+  background-color: #008542 !important;
+  box-shadow: 0 -4px rgb(21 108 0 / 50%) inset,
+    0 4px rgb(100 253 31 / 99%) inset, -4px 0 rgb(100 253 31 / 50%) inset,
+    4px 0 rgb(21 108 0 / 50%) inset;
+}
+.spiced button:after {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  content: "";
+  box-shadow: 0 4px 0 0 rgb(0 0 0 / 15%);
+  transition: 0.7s cubic-bezier(0, 0.8, 0.26, 0.99);
+}
+.spiced button:hover:before {
+  box-shadow: 0 -4px rgb(0 0 0 / 50%) inset, 0 4px rgb(255 255 255 / 20%) inset,
+    -4px 0 rgb(255 255 255 / 20%) inset, 4px 0 rgb(0 0 0 / 50%) inset;
+}
+.spiced button:hover:after {
+  box-shadow: 0 4px 0 0 rgb(0 0 0 / 15%);
+}
+.spiced button:active {
+  transform: translateY(4px);
+}
+.spiced button:active:after {
+  box-shadow: 0 0px 0 0 rgb(0 0 0 / 15%);
+}
+.slider {
+  width: 100%;
+  height: 25px;
+  background: rgb(21 108 0 / 50%);
+  border-radius: 5px;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+.slider:hover {
+  opacity: 1;
+}
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: rgb(100 253 31 / 50%);
+  cursor: pointer;
+  border-color: rgb(100 253 31 / 99%);
+}
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: rgb(100 253 31 / 50%);
+  cursor: pointer;
+  border-color: rgb(100 253 31 / 99%);
+}

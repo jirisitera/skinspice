@@ -1,0 +1,378 @@
+---
+import Layout from "../layouts/Layout.astro"
+---
+<Layout title='Generator'>
+<div class="container mt-10">
+  <h1 class="text-3xl font-bold mb-4 text-center">Step 1: Upload Image</h1>
+  <div class="mx-auto max-w-xl">
+    <input type="file" class="filepond" name="filepond" data-max-file-size="10MB" />
+  </div>
+  <h1 class="text-3xl font-bold my-8 text-center">Step 2: Edit Face Frames</h1>
+  <div class="flex flex-col items-center gap-4 mb-8">
+    <label for="colorInput">Select a color to draw with:</label>
+    <input type="color" id="colorInput" class="cursor-pointer ml-2 border-3 w-15 h-15 border-[#808080] rounded-sm">
+    <p>Click on a cell to fill it with the selected color.</p>
+    <p>Hold Ctrl and click a cell to pick the color from it.</p>
+    <p>All you need to do is draw closed eyes for the face.</p>
+    <p>If your skin does not have an overlay layer, you don't need to touch the second canvas.</p>
+    <div class="inline-flex items-center gap-2">
+      Show Guide:
+      <div class="checkbox-wrapper">
+        <div class="cbx">
+          <input id="toggleGuide" type="checkbox" class="cursor-pointer" checked/>
+          <label for="toggleGuide"/>
+          <svg width="15" height="14" fill="none"><path d="M2 8.36364L6.23077 12L13 2"/></svg>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+          <defs><filter id="goo-12">
+            <fegaussianblur in="SourceGraphic" stddeviation="4" result="blur"></fegaussianblur>
+            <fecolormatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7" result="goo-12"></fecolormatrix>
+            <feblend in="SourceGraphic" in2="goo-12"></feblend>
+            </filter></defs>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 m-8 place-items-center">
+    <div class="bg-[#666688] pt-10 pl-10 pr-10 pb-2 rounded-xl flex flex-col items-center">
+      <div id="guide1" class="guide"></div>
+      <canvas width="400" height="400" id="canvas1" class="cursor-crosshair"></canvas>
+      <div class="spiced mb-5 mt-6">
+        <button id="clearButton1">Reset Front Face</button>
+      </div>
+    </div>
+    <div class="bg-[#666688] pt-10 pl-10 pr-10 pb-2 rounded-xl flex flex-col items-center">
+      <div id="guide2" class="guide"></div>
+      <canvas width="400" height="400" id="canvas2" class="cursor-crosshair"></canvas>
+      <div class="spiced mb-5 mt-6">
+        <button id="clearButton2">Reset Back Face</button>
+      </div>
+    </div>
+  </div>
+  <h1 class="text-3xl font-bold my-8 text-center">Step 3: Select Settings</h1>
+  <div class="flex flex-col items-center gap-4 mb-8">
+    <label for="firstFrameRange">Open Eyes Frame Time: <span id="firstFrame">4</span> seconds</label>
+    <div>
+      <input type="range" step="0.1" min="0.1" max="25.5" value="4" class="slider" id="firstFrameRange">
+    </div>
+    <label for="secondFrameRange">Closed Eyes Frame Time: <span id="secondFrame">0.2</span> seconds</label>
+    <div>
+      <input type="range" step="0.1" min="0.1" max="25.5" value="0.2" class="slider" id="secondFrameRange">
+    </div>
+    <div class="inline-flex items-center gap-2">
+      Interpolate (Animate) Colors:
+      <div class="checkbox-wrapper">
+        <div class="cbx">
+          <input id="toggleInterpolation" type="checkbox" class="cursor-pointer"/>
+          <label for="toggleInterpolation"/>
+          <svg width="15" height="14" fill="none"><path d="M2 8.36364L6.23077 12L13 2"></path></svg>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+          <defs><filter id="goo-12">
+            <fegaussianblur in="SourceGraphic" stddeviation="4" result="blur"></fegaussianblur>
+            <fecolormatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7" result="goo-12"></fecolormatrix>
+            <feblend in="SourceGraphic" in2="goo-12"></feblend>
+          </filter></defs>
+        </svg>
+      </div>
+    </div>
+    <div class="inline-flex items-center gap-2">
+      Use Custom Damage Tint:
+      <div class="checkbox-wrapper">
+        <div class="cbx">
+          <input id="toggleCustomDamageTint" type="checkbox" class="cursor-pointer" checked/>
+          <label for="toggleCustomDamageTint"></label>
+          <svg width="15" height="14" fill="none"><path d="M2 8.36364L6.23077 12L13 2"></path></svg>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+          <defs><filter id="goo-12">
+            <fegaussianblur in="SourceGraphic" stddeviation="4" result="blur"></fegaussianblur>
+            <fecolormatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7" result="goo-12"></fecolormatrix>
+            <feblend in="SourceGraphic" in2="goo-12"></feblend>
+          </filter></defs>
+        </svg>
+      </div>
+    </div>
+    <label for="colorInputTint">Select Custom Damage Tint Color:</label>
+    <input type="color" id="colorInputTint" class="border-[#808080] ml-2 border-3 w-15 h-15 rounded-sm cursor-pointer">
+    <h1 class="text-3xl font-bold my-8 text-center">Step 4: Generate Your New Skin</h1>
+    <div class="spiced">
+      <button id="generateButton">Generate</button>
+    </div>
+  </div>
+</div>
+<script>
+import "../assets/css/generator.css";
+import "filepond/dist/filepond.css";
+import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
+import { create, registerPlugin } from "filepond";
+import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import FilePondPluginImageValidateSize from 'filepond-plugin-image-validate-size';
+import FilePondPluginFileValidateSize from "filepond-plugin-file-validate-size";
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+registerPlugin(FilePondPluginImagePreview, FilePondPluginImageValidateSize, FilePondPluginFileValidateSize, FilePondPluginFileValidateType);
+const pond = create(document.querySelector('input[type="file"]') as HTMLInputElement, {
+    acceptedFileTypes: ['image/png'],
+    imageValidateSizeMinWidth: 64,
+    imageValidateSizeMinHeight: 64,
+    imageValidateSizeMaxWidth: 64,
+    imageValidateSizeMaxHeight: 64,
+    credits: false,
+    required: true
+});
+// canvases
+const canvas1 = document.getElementById("canvas1") as HTMLCanvasElement;
+const canvas2 = document.getElementById("canvas2") as HTMLCanvasElement;
+const drawingContext1 = canvas1.getContext("2d") as CanvasRenderingContext2D;
+const drawingContext2 = canvas2.getContext("2d") as CanvasRenderingContext2D;
+const guide1 = document.getElementById("guide1") as HTMLDivElement;
+const guide2 = document.getElementById("guide2") as HTMLDivElement;
+// buttons
+const clearButton1 = document.getElementById("clearButton1") as HTMLButtonElement;
+const clearButton2 = document.getElementById("clearButton2") as HTMLButtonElement;
+const generateButton = document.getElementById("generateButton") as HTMLButtonElement;
+// inputs
+const toggleGuide = document.getElementById("toggleGuide") as HTMLInputElement;
+const colorInput = document.getElementById("colorInput") as HTMLInputElement;
+const colorInputTint = document.getElementById("colorInputTint") as HTMLInputElement;
+const toggleInterpolation = document.getElementById("toggleInterpolation") as HTMLInputElement;
+const toggleCustomDamageTint = document.getElementById("toggleCustomDamageTint") as HTMLInputElement;
+const firstFrameRange = document.getElementById("firstFrameRange") as HTMLInputElement;
+const secondFrameRange = document.getElementById("secondFrameRange") as HTMLInputElement;
+const firstFrame = document.getElementById("firstFrame") as HTMLSpanElement;
+const secondFrame = document.getElementById("secondFrame") as HTMLSpanElement;
+// variable definitions
+const CELL_SIDE_COUNT = 8;
+const cellPixelLength = canvas1.width / CELL_SIDE_COUNT;
+const colorHistory1 = {};
+const colorHistory2 = {};
+let imageData1: Uint8ClampedArray;
+let imageData2: Uint8ClampedArray;
+let originalImageData: ImageData | null = null;
+// setup elements
+drawingContext1.imageSmoothingEnabled = false;
+drawingContext2.imageSmoothingEnabled = false;
+firstFrame.innerHTML = firstFrameRange.value;
+secondFrame.innerHTML = secondFrameRange.value;
+colorInput.value = "#ffffff";
+colorInputTint.value = "#ff0000";
+{ guide1.style.width = `${canvas1.width}px`; guide1.style.height = `${canvas1.height}px`;
+  guide1.style.gridTemplateColumns = `repeat(${CELL_SIDE_COUNT}, 1fr)`;
+  guide1.style.gridTemplateRows = `repeat(${CELL_SIDE_COUNT}, 1fr)`;
+  [...Array(CELL_SIDE_COUNT ** 2)].forEach(() => guide1.insertAdjacentHTML("beforeend", "<div></div>"));}
+{ guide2.style.width = `${canvas2.width}px`; guide2.style.height = `${canvas2.height}px`;
+  guide2.style.gridTemplateColumns = `repeat(${CELL_SIDE_COUNT}, 1fr)`;
+  guide2.style.gridTemplateRows = `repeat(${CELL_SIDE_COUNT}, 1fr)`;
+  [...Array(CELL_SIDE_COUNT ** 2)].forEach(() => guide2.insertAdjacentHTML("beforeend", "<div></div>"));}
+function toHex(n: number) {
+  return n.toString(16).padStart(2, '0');
+}
+function rgbaToHex(r: number, g: number, b: number, a: number) {
+  return `#${toHex(r)}${toHex(g)}${toHex(b)}${toHex(a)}`;
+}
+function hexToRgba(hex: string): [number, number, number, number] {
+  if (!hex) return [255, 255, 255, 255];
+  if (hex.startsWith('#')) hex = hex.slice(1);
+  if (hex.length === 3) {
+    hex = hex.split('').map(c => c + c).join('');
+  }
+  if (hex.length === 6) {
+    const num = parseInt(hex, 16);
+    return [(num >> 16) & 255, (num >> 8) & 255, num & 255, 255];
+  }
+  if (hex.length === 8) {
+    const num = parseInt(hex, 16);
+    const r = (num >> 24) & 255;
+    const g = (num >> 16) & 255;
+    const b = (num >> 8) & 255;
+    const a = num & 255;
+    return [r, g, b, a];
+  }
+  return [255, 255, 255, 255];
+}
+function handleCanvasMousedown1(e: { button: number; clientX: number; clientY: number; ctrlKey: any; }) {
+  if (e.button !== 0) {
+    return;
+  }
+  const canvasBoundingRect = canvas1.getBoundingClientRect();
+  const x = e.clientX - canvasBoundingRect.left;
+  const y = e.clientY - canvasBoundingRect.top;
+  const cellX = Math.floor(x / cellPixelLength);
+  const cellY = Math.floor(y / cellPixelLength);
+  const currentColor = colorHistory1[`${cellX}_${cellY}`];
+  if (e.ctrlKey) {
+    if (currentColor) {
+      const [r, g, b] = hexToRgba(currentColor);
+      colorInput.value = `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+    }
+  } else {
+    fillCell1(cellX, cellY);
+  }
+}
+function handleCanvasMousedown2(e: { button: number; clientX: number; clientY: number; ctrlKey: any; }) {
+  if (e.button !== 0) {
+    return;
+  }
+  const canvasBoundingRect = canvas2.getBoundingClientRect();
+  const x = e.clientX - canvasBoundingRect.left;
+  const y = e.clientY - canvasBoundingRect.top;
+  const cellX = Math.floor(x / cellPixelLength);
+  const cellY = Math.floor(y / cellPixelLength);
+  const currentColor = colorHistory2[`${cellX}_${cellY}`];
+  if (e.ctrlKey) {
+    if (currentColor) {
+      const [r, g, b] = hexToRgba(currentColor);
+      colorInput.value = `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+    }
+  } else {
+    fillCell2(cellX, cellY);
+  }
+}
+function handleClearButtonClick1() {
+  const yes = confirm("This will reset the canvas back to your skin face. Are you sure?");
+  if (!yes) return;
+  fillCanvas1();
+}
+function handleClearButtonClick2() {
+  const yes = confirm("This will reset the canvas back to your skin face. Are you sure?");
+  if (!yes) return;
+  fillCanvas2();
+}
+function handleToggleGuideChange() {
+  guide1.style.display = toggleGuide.checked ? "" : "none";
+  guide2.style.display = toggleGuide.checked ? "" : "none";
+}
+function fillCell1(cellX: number, cellY: number) {
+  const startX = cellX * cellPixelLength;
+  const startY = cellY * cellPixelLength;
+  drawingContext1.fillStyle = colorInput.value;
+  drawingContext1.fillRect(startX, startY, cellPixelLength, cellPixelLength);
+  colorHistory1[`${cellX}_${cellY}`] = colorInput.value;
+}
+function fillCell2(cellX: number, cellY: number) {
+  const startX = cellX * cellPixelLength;
+  const startY = cellY * cellPixelLength;
+  drawingContext2.fillStyle = colorInput.value;
+  drawingContext2.fillRect(startX, startY, cellPixelLength, cellPixelLength);
+  colorHistory2[`${cellX}_${cellY}`] = colorInput.value;
+}
+function fillCellWithHex1(cellX: number, cellY: number, hex: string | CanvasGradient | CanvasPattern) {
+  const startX = cellX * cellPixelLength;
+  const startY = cellY * cellPixelLength;
+  drawingContext1.fillStyle = hex;
+  drawingContext1.fillRect(startX, startY, cellPixelLength, cellPixelLength);
+  colorHistory1[`${cellX}_${cellY}`] = hex;
+}
+function fillCellWithHex2(cellX: number, cellY: number, hex: string | CanvasGradient | CanvasPattern) {
+  const startX = cellX * cellPixelLength;
+  const startY = cellY * cellPixelLength;
+  drawingContext2.fillStyle = hex;
+  drawingContext2.fillRect(startX, startY, cellPixelLength, cellPixelLength);
+  colorHistory2[`${cellX}_${cellY}`] = hex;
+}
+function buildRegionFromHistory(history: Record<string, string>): Uint8ClampedArray {
+  const arr = new Uint8ClampedArray(8 * 8 * 4);
+  for (let y = 0; y < 8; y++) {
+    for (let x = 0; x < 8; x++) {
+      const hex = history[`${x}_${y}`] || '#ffffff';
+      const [r, g, b, a] = hexToRgba(hex);
+      const i = (y * 8 + x) * 4;
+      arr[i] = r; arr[i + 1] = g; arr[i + 2] = b; arr[i + 3] = a;
+    }
+  }
+  return arr;
+}
+function writeRegionToImageData(img: ImageData, region: Uint8ClampedArray, dstX: number, dstY: number, imgW = 64) {
+  for (let y = 0; y < 8; y++) {
+    for (let x = 0; x < 8; x++) {
+      const src = (y * 8 + x) * 4;
+      const dst = ((dstY + y) * imgW + (dstX + x)) * 4;
+      img.data[dst] = region[src];
+      img.data[dst + 1] = region[src + 1];
+      img.data[dst + 2] = region[src + 2];
+      img.data[dst + 3] = region[src + 3];
+    }
+  }
+}
+async function applyEditsAndDownload() {
+  if (!originalImageData) return;
+  const copy = new ImageData(new Uint8ClampedArray(originalImageData.data), originalImageData.width, originalImageData.height);
+  const frontRegion = buildRegionFromHistory(colorHistory1 as Record<string, string>);
+  const backRegion = buildRegionFromHistory(colorHistory2 as Record<string, string>);
+  writeRegionToImageData(copy, frontRegion, 24, 0);
+  writeRegionToImageData(copy, backRegion, 56, 0);
+  const setPixelColor = (x: number, y: number, r: number, g: number, b: number, a: number) => {
+    const idx = (y * copy.width + x) * 4;
+    copy.data[idx] = r;
+    copy.data[idx + 1] = g;
+    copy.data[idx + 2] = b;
+    copy.data[idx + 3] = a;
+  };
+  setPixelColor(0, 0, 0, 192, 255, 255);
+  setPixelColor(1, 0, parseFloat(firstFrameRange.value) * 10, parseFloat(secondFrameRange.value) * 10, toggleInterpolation.checked ? 255 : 0, 255);
+  if (toggleCustomDamageTint.checked) {
+    setPixelColor(2, 0, ...hexToRgba(colorInputTint.value));
+  }
+  const out = document.createElement('canvas');
+  out.width = copy.width; out.height = copy.height;
+  out.getContext('2d')!.putImageData(copy, 0, 0);
+  out.toBlob((blob) => {
+    if (!blob) return;
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'skin-edited.png';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }, 'image/png');
+}
+function fillCanvas1() {
+  for (let y = 0; y < 8; y++) {
+    for (let x = 0; x < 8; x++) {
+      const id = (y * 8 + x) * 4;
+      const r = imageData1[id];
+      const g = imageData1[id + 1];
+      const b = imageData1[id + 2];
+      const a = imageData1[id + 3];
+      const hex1 = rgbaToHex(r, g, b, a);
+      fillCellWithHex1(x, y, hex1);
+    }
+  }
+}
+function fillCanvas2() {
+  for (let y = 0; y < 8; y++) {
+    for (let x = 0; x < 8; x++) {
+      const id = (y * 8 + x) * 4;
+      const r = imageData2[id];
+      const g = imageData2[id + 1];
+      const b = imageData2[id + 2];
+      const a = imageData2[id + 3];
+      const hex2 = rgbaToHex(r, g, b, a);
+      fillCellWithHex2(x, y, hex2);
+    }
+  }
+}
+pond.on('addfile', async (error, fileItem) => {
+  if (error) return;
+  const bitmap = await createImageBitmap(fileItem.file as File);
+  const temporaryCanvas = document.createElement('canvas');
+  temporaryCanvas.width = bitmap.width;
+  temporaryCanvas.height = bitmap.height;
+  const temporaryContext = temporaryCanvas.getContext('2d')!;
+  temporaryContext.imageSmoothingEnabled = false;
+  temporaryContext.drawImage(bitmap, 0, 0);
+  originalImageData = temporaryContext.getImageData(0, 0, bitmap.width, bitmap.height);
+  imageData1 = temporaryContext.getImageData(8, 8, 8, 8).data;
+  imageData2 = temporaryContext.getImageData(40, 8, 8, 8).data;
+  fillCanvas1();
+  fillCanvas2();
+  canvas1.addEventListener("mousedown", handleCanvasMousedown1);
+  canvas2.addEventListener("mousedown", handleCanvasMousedown2);
+  clearButton1.addEventListener("click", handleClearButtonClick1);
+  clearButton2.addEventListener("click", handleClearButtonClick2);
+  generateButton.addEventListener('click', applyEditsAndDownload);
+});
+firstFrameRange.oninput = function() {firstFrame.innerHTML = firstFrameRange.value;}
+secondFrameRange.oninput = function() {secondFrame.innerHTML = secondFrameRange.value;}
+toggleGuide.addEventListener("change", handleToggleGuideChange);
+</script>
+</Layout>

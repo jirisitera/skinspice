@@ -1,0 +1,33 @@
+---
+import "../assets/css/global.css"
+import Header from "../components/Header.astro"
+import Footer from "../components/Footer.astro"
+const {title} = Astro.props
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>{`${title} | SkinSpice`}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+    <link rel="sitemap" href="/sitemap-index.xml"/>
+    <link rel="manifest" href="/manifest.json"/>
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)}/>
+    <meta name="generator" content={Astro.generator}/>
+    <meta name="title" content={`${title} | SkinSpice`}/>
+    <meta name="description" content="Spice up your Minecraft skin with more customization!"/>
+    <meta name="theme-color" content="#4499bb"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content={Astro.url}/>
+    <meta property="og:title" content={`${title} | SkinSpice`}/>
+    <meta property="og:description" content="Spice up your Minecraft skin with more customization!"/>
+    <meta property="twitter:url" content={Astro.url}/>
+    <meta property="twitter:title" content={`${title} | SkinSpice`}/>
+    <meta property="twitter:description" content="Spice up your Minecraft skin with more customization!"/>
+  </head>
+  <body>
+    <Header/>
+    <slot/>
+    <Footer/>
+  </body>
+</html>
